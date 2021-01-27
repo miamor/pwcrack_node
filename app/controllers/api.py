@@ -6,9 +6,10 @@ from app.lib.base.provider import Provider
 import json
 import os
 from app.utils.web_api import WebAPI
+import web_cf
 
 auth = HTTPBasicAuth()
-web_api = WebAPI('0.0.0.0', 5001, 'admin', 'admin')
+web_api = WebAPI(web_cf.ip, web_cf.port, web_cf.username, web_cf.password)
 
 bp = Blueprint('api', __name__)
 
