@@ -9,11 +9,12 @@ files/wordlists/*
 files/masks/*
 files/hashes/*
 files/screen/*
+!files/*/.gitkeep
+
 data/sessions/*
+!data/sessions/.gitkeep
 
 .pytest_cache/
-.coverage
-htmlcov/
 
 dist/
 build/
@@ -21,6 +22,3 @@ build/
 
 .idea/
 migrations/
-
-#data/*
-!data/.gitkeep
