@@ -4,8 +4,8 @@ venv/
 __pycache__/
 __archived__/
 
-files/*/*
-data/sessions/
+files/**/**
+data/sessions/**
 
 .pytest_cache/
 .coverage
@@ -20,8 +20,3 @@ migrations/
 
 #data/*
 !data/.gitkeep
-
-os/config/*
-!os/config/.gitkeep
-
-setup/ansible/vars.yml
