@@ -23,3 +23,5 @@ build/
 
 .idea/
 migrations/
+
+web_cf.py
