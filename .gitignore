@@ -4,8 +4,12 @@ venv/
 __pycache__/
 __archived__/
 
-files/**/**
-data/sessions/**
+files/rules/*
+files/wordlists/*
+files/masks/*
+files/hashes/*
+files/screen/*
+data/sessions/*
 
 .pytest_cache/
 .coverage
