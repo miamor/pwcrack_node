@@ -14,6 +14,10 @@ web_api = WebAPI(web_cf.ip, web_cf.port, web_cf.username, web_cf.password)
 bp = Blueprint('api', __name__)
 
 
+@bp.route('isUp', methods=['GET'])
+def isUp():
+    return {'response': 'ok'}
+
 @bp.route('/get_running_processes_commands', methods=['GET'])
 def get_running_processes_commands():
     provider = Provider()
@@ -87,8 +91,6 @@ def create_session():
 
         return res
     except Exception as e:
-        traceback.print_exc()
-
         return {
             "response": "error",
             "message": str(e),
@@ -130,8 +132,6 @@ def sync_hashcat_session():
 
         return res
     except Exception as e:
-        traceback.print_exc()
-
         return {
             "response": "error",
             "message": str(e),
