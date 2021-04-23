@@ -35,7 +35,7 @@ class WebAPI:
             "X-PwCrack-Auth": "L5fit5U675e4s4AKt3UtqjnXBTuXkOIb"
         }
 
-        url = "http://%s:%d/api/v1%s" % (self.ip, self.port, url)
+        url = "https://%s:%d/api/v1%s" % (self.ip, self.port, url)
         print('[post_file] url', url)
         # print('[post_file] filepaths', filepaths)
         # files = [("file", (filepath.split('/')[-1], open(filepath, 'rb'), 'application/octet-stream')) for filepath in filepaths]

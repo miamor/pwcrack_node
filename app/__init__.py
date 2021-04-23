@@ -5,6 +5,10 @@ from flask_sqlalchemy import SQLAlchemy
 # from flask_wtf.csrf import CSRFProtect
 from flask_crontab import Crontab
 from flask_httpauth import HTTPBasicAuth
+from secure import SecureHeaders
+
+# secure_headers = SecureHeaders()
+secure_headers = SecureHeaders(csp=True, hsts=False, xfo="DENY")
 
 
 db = SQLAlchemy()
@@ -84,6 +88,31 @@ def create_app(config_class=None, auth_user=None, auth_hash=None):
     #     provider = Provider()
     #     cron = provider.cron()
     #     cron.run()
+
+    @app.before_request
+    def before_request():
+        skip_session_update = False
+
+        if skip_session_update is False and request.endpoint in app.view_functions:
+            # Exclude session updates for views that have @dont_update_session (is status checked in sessions).
+            view_function = app.view_functions[request.endpoint]
+            skip_session_update = hasattr(view_function, '_dont_update_session')
+
+        if skip_session_update is False:
+            session.permanent = True
+            app.permanent_session_lifetime = datetime.timedelta(minutes=20)
+            session.modified = True
+
+    @app.after_request
+    def after_request(response):
+        # response.headers['Server'] = 'Windows 98'
+        # response.headers['X-Frame-Options'] = 'DENY'
+        # response.headers['X-XSS-Protection'] = '1; mode=block'
+        # response.headers['X-Content-Type-Options'] = 'nosniff'
+        # response.headers['Referrer-Policy'] = 'no-referrer'
+        secure_headers.flask(response)
+        return response
+
 
     return app
 
