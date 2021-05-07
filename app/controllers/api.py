@@ -58,9 +58,9 @@ def hashcat_action(session_name, action):
             return {'response': 'error', 'message': 'Something wrong when running web_api.up_to_web()'}
         return {'response': 'ok'}
     else:
-        result = sessions.hashcat_action(session, action)
+        result, msg = sessions.hashcat_action(session, action)
         if result is False:
-            return {'response': 'error', 'message': 'Something wrong when running hashcat_action()'}
+            return {'response': 'error', 'message': 'Something wrong when running hashcat_action(). {}'.format(msg)}
         return {'response': 'ok'}
 
 

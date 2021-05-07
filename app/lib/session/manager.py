@@ -57,6 +57,7 @@ class SessionManager:
             description=data['description'],
             screen_name=data['screen_name'],
             active=data['active'],
+            hints=data['hints'],
             # notifications_enabled=data['notifications_enabled'],
             # terminate_at=datetime.datetime.fromisoformat(data['terminate_at']),
             # created_at=datetime.datetime.fromisoformat(data['created_at']),
@@ -176,16 +177,17 @@ class SessionManager:
         # First get the session.
         # session = self.get(session_id=session_id)[0]
 
-
         # Make sure the screen is running.
         screen = self.screens.get(session.screen_name, log_file=self.session_filesystem.get_screenfile_path(session.user_id, session.id))
 
+        # print('screen', screen)
+
         if screen is False:
-            return False
+            return False, 'screen is not running'
 
         if action == 'start':
             if self.__is_past_date(session.terminate_at):
-                return False
+                return False, 'Terminate time is over'
 
             command = self.hashcat.build_command_line(
                 session.screen_name,
@@ -203,6 +205,8 @@ class SessionManager:
                 int(session.hashcat.workload)
             )
 
+            print('[SessionManager][hashcat_action] command', ' '.join(command))
+
             # Before we start a new session, rename the previous "screen.log" file
             # so that we can determine errors/state easier.
             self.session_filesystem.backup_screen_log_file(session.user_id, session.id)
@@ -219,7 +223,7 @@ class SessionManager:
             screen = self.screens.get(session.screen_name, log_file=self.session_filesystem.get_screenfile_path(session.user_id, session.id))
         elif action == 'resume':
             if self.__is_past_date(session.terminate_at):
-                return False
+                return False, 'Terminate time is over'
 
             # Hashcat only needs 'r' to resume.
             screen.execute({'r': ''})
@@ -255,7 +259,7 @@ class SessionManager:
             screen.execute({'q': ''})
         elif action == 'restore':
             if self.__is_past_date(session.terminate_at):
-                return False
+                return False, 'Terminate time is over'
 
             # To restore a session we need a command line like 'hashcat --session NAME --restore'.
             command = self.hashcat.build_restore_command(session.screen_name)
@@ -270,9 +274,9 @@ class SessionManager:
             # Wain a second.
             time.sleep(1)
         else:
-            return False
+            return False, '{} is not defined'.format(action)
 
-        return True
+        return True, 'ok'
 
     def __is_past_date(self, date):
         return datetime.datetime.now() > date
@@ -321,6 +325,8 @@ class SessionManager:
                 session.created_at = datetime.datetime.fromisoformat(val)
             elif key == 'screen_name':
                 session.screen_name = val
+            elif key == 'hints':
+                session.hints = val
 
         db.session.commit()
         db.session.refresh(session)

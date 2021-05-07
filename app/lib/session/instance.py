@@ -41,6 +41,10 @@ class SessionInstance:
         return self.session.active
 
     @property
+    def hints(self):
+        return self.session.hints
+
+    @property
     def notifications_enabled(self):
         return self.session.notifications_enabled
 

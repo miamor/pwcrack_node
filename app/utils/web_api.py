@@ -25,7 +25,8 @@ class WebAPI:
         payload = {
             'session_id': session_id,
         }
-        return self.post_file("/sessions/%s/synchronize_to_web" % session_id, payload=payload, filepaths=filepaths)
+        resp = self.post_file("/sessions/%s/synchronize_to_web" % session_id, payload=payload, filepaths=filepaths)
+        return resp
 
     def post_file(self, url, payload, filepaths):
         headers = {
@@ -36,7 +37,7 @@ class WebAPI:
         }
 
         url = "https://%s:%d/api/v1%s" % (self.ip, self.port, url)
-        print('[post_file] url', url)
+        print('[post_file] url', url, headers)
         # print('[post_file] filepaths', filepaths)
         # files = [("file", (filepath.split('/')[-1], open(filepath, 'rb'), 'application/octet-stream')) for filepath in filepaths]
 

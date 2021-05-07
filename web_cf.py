@@ -1,4 +1,4 @@
-ip = '192.168.2.12'
+ip = '192.168.1.8'
 port = 5000
 username = 'admin'
 password = 'admin'

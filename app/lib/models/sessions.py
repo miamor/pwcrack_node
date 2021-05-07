@@ -11,6 +11,7 @@ class SessionModel(db.Model):
     filename = db.Column(db.String, default='', index=True, nullable=True)
     name = db.Column(db.String, default='', index=True, nullable=True)
     description = db.Column(db.String, default='', index=True, nullable=True)
+    hints = db.Column(db.String, default='', index=True, nullable=True)
     screen_name = db.Column(db.String, default='', index=True, nullable=True)
     active = db.Column(db.Boolean, default=False, index=True, nullable=True)
     # notifications_enabled = db.Column(db.Boolean, default=False, index=True, nullable=True)
