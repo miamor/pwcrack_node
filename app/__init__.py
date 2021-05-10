@@ -118,4 +118,4 @@ def create_app(config_class=None, auth_user=None, auth_hash=None):
 
 
 # This has to be at the bottom.
-from app.lib.models import config, sessions, hashcat
+from app.models import config, sessions, hashcat

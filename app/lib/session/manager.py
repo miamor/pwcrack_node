@@ -4,8 +4,8 @@ import string
 import os
 import datetime
 import time
-from app.lib.models.sessions import SessionModel, SessionNotificationModel
-from app.lib.models.hashcat import HashcatModel, HashcatHistoryModel
+from app.models.sessions import SessionModel, SessionNotificationModel
+from app.models.hashcat import HashcatModel, HashcatHistoryModel
 from app.lib.session.filesystem import SessionFileSystem
 from app.lib.session.instance import SessionInstance
 from app.lib.hashcat.instance import HashcatInstance

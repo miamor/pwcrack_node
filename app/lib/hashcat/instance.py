@@ -1,5 +1,5 @@
 import os
-from app.lib.models.hashcat import HashcatModel
+from app.models.hashcat import HashcatModel
 
 
 class HashcatInstance:

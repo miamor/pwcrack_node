@@ -1,5 +1,5 @@
 import os
-from app.lib.models.hashcat import HashcatHistoryModel
+from app.models.hashcat import HashcatHistoryModel
 from sqlalchemy import desc
 import linecache
 

@@ -4,7 +4,7 @@ import shlex
 
 from sqlalchemy import and_, desc
 
-from app.lib.models.system import ShellLogModel
+from app.models.system import ShellLogModel
 from app import db
 
 
